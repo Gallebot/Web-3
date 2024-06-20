@@ -1,47 +1,33 @@
-import React from 'react';
-import '../productos.css';
-import imagen1 from './images/Rose.jpg';
+import React, { useEffect, useState } from 'react';
 
 function Productos() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch('http://localhost:5000/products');
+      const data = await response.json();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <section className="product-section">
-      <h2>TODO PARA EL CALOR</h2>
+      <h2>Productos</h2>
       <div className="product-container">
-        <div className="product-card">
-          <img src={imagen1} alt="Shorts para Hombres" />
-          <div className="product-info">
-            <h3>1</h3>
-            <button>COMPRAR</button>
+        {products.map((product) => (
+          <div className="product-card" key={product._id}>
+            <img src={product.image} alt={product.name} />
+            <div className="product-info">
+              <h3>{product.name}</h3>
+              <p>{product.description}</p>
+              <p>${product.price}</p>
+              <button>COMPRAR</button>
+            </div>
           </div>
-        </div>
-        <div className="product-card">
-          <img src={imagen1} alt="Playeras Puma" />
-          <div className="product-info">
-            <h3>2</h3>
-            <button>COMPRAR</button>
-          </div>
-        </div>
-        <div className="product-card">
-          <img src={imagen1} alt="Faldas y Vestidos" />
-          <div className="product-info">
-            <h3>3</h3>
-            <button>COMPRAR</button>
-          </div>
-        </div>
-        <div className="product-card">
-          <img src={imagen1} alt="Faldas y Vestidos" />
-          <div className="product-info">
-            <h3>4</h3>
-            <button>COMPRAR</button>
-          </div>
-        </div>
-        <div className="product-card">
-          <img src={imagen1} alt="Faldas y Vestidos" />
-          <div className="product-info">
-            <h3>5</h3>
-            <button>COMPRAR</button>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

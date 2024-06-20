@@ -1,0 +1,31 @@
+.add-product-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+  }
+  
+  .add-product-container form {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .product-preview {
+    flex: 1;
+  }
+  
+  .product-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .product-card img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .product-info {
+    margin-top: 10px;
+  }
+  

@@ -6,7 +6,10 @@ import Carrusel from './components/Carrusel';
 import MainContent from './components/MainContent';
 import './style.css';
 import Productos from './components/Productos';
-import ProductPage from './components/ProductPage'; // Asegúrate de que el nombre del archivo es correcto
+import ProductPage from './components/ProductPage';
+import Login from './components/Login';
+import Register from './components/Register';
+import AddProductWithPreview from './components/AddProductWithPreview'; // Importa el nuevo componente
 
 function App() {
   return (
@@ -23,7 +26,10 @@ function App() {
             </>
           } />
           <Route path="/productos" element={<Productos />} />
-          <Route path="/gorras" element={<ProductPage />} />
+          <Route path="/informatica" element={<ProductPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/add-product" element={<AddProductWithPreview />} /> {/* Nueva ruta */}
         </Routes>
       </div>
     </Router>
