@@ -1,85 +1,89 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import '../AddProductWithPreview.css';
+import ProductList from './ProductList'; // Importa el componente ProductList
 
-function AddProductWithPreview() {
+const AddProductWithPreview = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
-  const [image, setImage] = useState('');
+  const [category, setCategory] = useState('');
+  const [imageLink, setImageLink] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, description, price, image }),
-    });
-    const data = await response.json();
-    if (data.success) {
-      alert('Product added successfully');
+    const newProduct = {
+      name,
+      description,
+      price,
+      category,
+      image: imageLink
+    };
+
+    try {
+      const response = await axios.post('http://localhost:5000/products', newProduct);
+      console.log(response.data);
+      setMessage('Producto añadido exitosamente!');
+      // Limpiar los campos después de añadir el producto
       setName('');
       setDescription('');
       setPrice('');
-      setImage('');
-    } else {
-      alert('Failed to add product');
+      setCategory('');
+      setImageLink('');
+    } catch (error) {
+      console.error('Hubo un error añadiendo el producto!', error);
+      setMessage('Error añadiendo el producto');
     }
   };
 
   return (
     <div className="add-product-container">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
+      <div className="add-product-form">
+        <h2>Añadir Producto</h2>
+        {message && <p>{message}</p>}
+        <form onSubmit={handleSubmit}>
           <input 
             type="text" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
+            placeholder="Nombre del producto" 
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             required 
           />
-        </div>
-        <div>
-          <label>Description:</label>
           <input 
             type="text" 
-            value={description} 
-            onChange={(e) => setDescription(e.target.value)} 
+            placeholder="Descripción del producto" 
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             required 
           />
-        </div>
-        <div>
-          <label>Price:</label>
           <input 
             type="number" 
-            value={price} 
-            onChange={(e) => setPrice(e.target.value)} 
+            placeholder="Valor del producto" 
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             required 
           />
-        </div>
-        <div>
-          <label>Image URL:</label>
           <input 
             type="text" 
-            value={image} 
-            onChange={(e) => setImage(e.target.value)} 
+            placeholder="Categoría del producto" 
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             required 
           />
-        </div>
-        <button type="submit">Add Product</button>
-      </form>
-
-      <div className="product-preview">
-        <h2>Product Preview</h2>
-        <div className="product-card">
-          {image && <img src={image} alt={name} />}
-          <div className="product-info">
-            <h3>{name}</h3>
-            <p>{description}</p>
-            <p>${price}</p>
-          </div>
-        </div>
+          <input 
+            type="text" 
+            placeholder="Link de la imagen del producto" 
+            value={imageLink}
+            onChange={(e) => setImageLink(e.target.value)}
+            required 
+          />
+          <button type="submit">Añadir</button>
+        </form>
       </div>
+      <ProductList /> {/* Mueve el componente ProductList fuera del formulario */}
     </div>
   );
-}
+};
 
 export default AddProductWithPreview;

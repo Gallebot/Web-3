@@ -30,7 +30,8 @@ const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
-  image: { type: String, required: true }
+  image: { type: String, required: true },
+  category: { type: String, required: true }
 });
 
 // Models
@@ -77,13 +78,14 @@ app.post('/login', async (req, res) => {
 
 // Ruta para agregar productos
 app.post('/products', async (req, res) => {
-  const { name, description, price, image } = req.body;
+  const { name, description, price, image, category } = req.body;
 
   const newProduct = new Product({
     name,
     description,
     price,
-    image
+    image,
+    category
   });
 
   await newProduct.save();
@@ -96,6 +98,5 @@ app.get('/products', async (req, res) => {
   const products = await Product.find();
   res.json(products);
 });
-
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
