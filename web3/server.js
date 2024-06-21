@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static('public')); // Servir archivos estáticos desde la carpeta 'public'
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
 });
 
 // Models
-const User = mongoose.model('Usuarios Registrados', userSchema);
+const User = mongoose.model('User', userSchema);
 const Product = mongoose.model('Product', productSchema);
 
 // Ruta de registro de usuarios
@@ -98,5 +98,16 @@ app.get('/products', async (req, res) => {
   const products = await Product.find();
   res.json(products);
 });
+
+// Ruta para eliminar productos
+app.delete('/products/:id', async (req, res) => {
+  try {
+    await Product.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error deleting product' });
+  }
+});
+
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

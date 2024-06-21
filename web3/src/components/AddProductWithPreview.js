@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../AddProductWithPreview.css';
-import ProductList from './ProductList'; // Importa el componente ProductList
 
 const AddProductWithPreview = () => {
   const [name, setName] = useState('');
@@ -10,6 +9,20 @@ const AddProductWithPreview = () => {
   const [category, setCategory] = useState('');
   const [imageLink, setImageLink] = useState('');
   const [message, setMessage] = useState('');
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/products');
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,17 +36,27 @@ const AddProductWithPreview = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/products', newProduct);
-      console.log(response.data);
       setMessage('Producto añadido exitosamente!');
-      // Limpiar los campos después de añadir el producto
       setName('');
       setDescription('');
       setPrice('');
       setCategory('');
       setImageLink('');
+      fetchProducts();
     } catch (error) {
       console.error('Hubo un error añadiendo el producto!', error);
       setMessage('Error añadiendo el producto');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/products/${id}`);
+      setMessage('Producto eliminado exitosamente!');
+      fetchProducts();
+    } catch (error) {
+      console.error('Error eliminando el producto:', error);
+      setMessage('Error eliminando el producto');
     }
   };
 
@@ -81,7 +104,18 @@ const AddProductWithPreview = () => {
           <button type="submit">Añadir</button>
         </form>
       </div>
-      <ProductList /> {/* Mueve el componente ProductList fuera del formulario */}
+      <div className="products-list">
+        {products.map(product => (
+          <div key={product._id} className="product-card">
+            <img src={product.image} alt={product.name} />
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+            <p>Precio: ${product.price}</p>
+            <p>Categoría: {product.category}</p>
+            <button onClick={() => handleDelete(product._id)}>Eliminar</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

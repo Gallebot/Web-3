@@ -1,76 +1,78 @@
-.add-product-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-}
-
+/* AddProductWithPreview.css */
 .add-product-form {
-  background: #1e2a38;
+  width: 300px;
+  margin: 0 auto;
   padding: 20px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: white; /* Añadido para el texto blanco */
+  background-color: #1c1e21;
+  color: white;
+  text-align: center;
 }
 
 .add-product-form h2 {
-  margin-bottom: 10px;
-  color: white; /* Añadido para el texto blanco */
+  margin-bottom: 20px;
 }
 
 .add-product-form input {
-  display: block;
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
-  border: none;
+  margin: 10px 0;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #333; /* Fondo oscuro para inputs */
-  color: white; /* Color del texto en inputs */
+  background-color: #f1f1f1;
+  color: black;
 }
 
 .add-product-form button {
   width: 100%;
   padding: 10px;
-  background: #007bff;
-  color: white;
   border: none;
   border-radius: 5px;
+  background-color: #007bff;
+  color: white;
   cursor: pointer;
 }
 
-.product-list {
-  margin-top: 20px;
+.add-product-form button:hover {
+  background-color: #0056b3;
+}
+
+.products-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
-.product-item {
-  background: #1e2a38; /* Fondo oscuro para productos */
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 250px;
+/* Estilo de cada tarjeta de producto */
+.product-card {
+  background-color: #686868; /* Color de fondo gris */
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  width: calc(25% - 20px); /* 4 productos por fila */
+  box-sizing: border-box;
   text-align: center;
-  color: white; /* Color del texto en productos */
 }
 
-.product-item img {
+.product-card img {
   max-width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
+  border-radius: 10px; /* Bordes redondeados para la imagen */
 }
 
-.product-item h3 {
-  margin: 10px 0;
-  font-size: 1.2em;
+.product-card button {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
 }
 
-.product-item p {
-  margin: 5px 0;
+.product-card button:hover {
+  background-color: #c82333;
 }
