@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(express.static('public')); // Servir archivos estáticos desde la carpeta 'public'
 
 // MongoDB connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
 });
 
 // Models
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('Usuarios Registrados', userSchema);
 const Product = mongoose.model('Product', productSchema);
 
 // Ruta de registro de usuarios
@@ -106,6 +106,16 @@ app.delete('/products/:id', async (req, res) => {
     res.json({ success: true, message: 'Product deleted successfully' });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error deleting product' });
+  }
+});
+
+// Ruta para actualizar productos
+app.put('/products/:id', async (req, res) => {
+  try {
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json({ success: true, message: 'Product updated successfully', product: updatedProduct });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error updating product' });
   }
 });
 
