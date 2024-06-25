@@ -1,49 +1,69 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import '../stylereg.css';
 
-function Register() {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('buyer');
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    });
-    const data = await response.json();
-    if (data.success) {
-      alert('User registered successfully');
-    } else {
-      alert('Registration failed: ' + data.message);
+    try {
+      const response = await axios.post('http://localhost:5000/register', { username, password, role });
+      setMessage(response.data.message);
+      setUsername('');
+      setPassword('');
+      setRole('buyer'); // Restablecer a 'buyer' después del registro
+    } catch (error) {
+      setMessage('Error registering user');
     }
   };
 
   return (
-    <div className="register-container">
-      <form onSubmit={handleSubmit}>
+    <div className="register-form">
+      <h2>Register</h2>
+      {message && <p>{message}</p>}
+      <form onSubmit={handleRegister}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <div>
-          <label>Username:</label>
-          <input 
-            type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
-            required 
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-          />
+          <label>
+            <input
+              type="radio"
+              value="buyer"
+              checked={role === 'buyer'}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            Comprador
+          </label>
+          <label>
+            <input
+              type="radio"
+              value="admin"
+              checked={role === 'admin'}
+              onChange={(e) => setRole(e.target.value)}
+            />
+            Administrador
+          </label>
         </div>
         <button type="submit">Register</button>
       </form>
     </div>
   );
-}
+};
 
 export default Register;

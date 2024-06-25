@@ -1,49 +1,60 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import '../Login.css'; // Asegúrate de tener un archivo CSS para los estilos
 
-function Login() {
-  const [email, setEmail] = useState('');
+const Login = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await response.json();
-    if (data.success) {
-      alert('Login successful');
-    } else {
-      alert('Login failed');
+    try {
+      const response = await axios.post('http://localhost:5000/login', { username, password });
+      if (response.data.success) {
+        if (response.data.role === 'admin') {
+          navigate('/users');
+        } else {
+          navigate('/');
+        }
+      } else {
+        setMessage('NO FUE POSIBLE INICIAR SESION');
+      }
+    } catch (error) {
+      setMessage('Error en la solicitud');
     }
   };
 
+  const handleRegister = () => {
+    navigate('/register');
+  };
+
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            required 
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
-            required 
-          />
-        </div>
-        <button type="submit">Login</button>
+    <div className="login-form">
+      <h2>Iniciar Sesión</h2>
+      {message && <p>{message}</p>}
+      <form onSubmit={handleLogin}>
+        <input 
+          type="text" 
+          placeholder="Correo" 
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required 
+        />
+        <input 
+          type="password" 
+          placeholder="Contraseña" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required 
+        />
+        <button type="submit">Iniciar Sesión</button>
       </form>
+      <button onClick={handleRegister}>Regístrate</button>
     </div>
   );
-}
+};
 
 export default Login;

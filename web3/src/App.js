@@ -10,7 +10,7 @@ import ProductPage from './components/ProductPage';
 import Login from './components/Login';
 import Register from './components/Register';
 import AddProductWithPreview from './components/AddProductWithPreview';
-import UpdateProduct from './components/UpdateProduct'; // Importa el nuevo componente
+import UserManagement from './components/UserManagement';
 
 function App() {
   return (
@@ -30,8 +30,8 @@ function App() {
           <Route path="/informatica" element={<ProductPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/add-product" element={<AddProductWithPreview />} /> {/* Nueva ruta */}
-          <Route path="/update-product" element={<UpdateProduct />} /> {/* Nueva ruta para actualizar productos */}
+          <Route path="/add-product" element={<AddProductWithPreview />} />
+          <Route path="/users" element={<UserManagement />} />
         </Routes>
       </div>
     </Router>

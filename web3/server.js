@@ -22,7 +22,8 @@ mongoose.connect(process.env.MONGO_URI)
 // User Schema
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  role: { type: String, enum: ['admin', 'buyer'], default: 'admin' }
 });
 
 // Product Schema
@@ -40,7 +41,7 @@ const Product = mongoose.model('Product', productSchema);
 
 // Ruta de registro de usuarios
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, role } = req.body;
 
   const existingUser = await User.findOne({ username });
   if (existingUser) {
@@ -51,12 +52,29 @@ app.post('/register', async (req, res) => {
 
   const newUser = new User({
     username,
-    password: hashedPassword
+    password: hashedPassword,
+    role: role // Utilizar el rol proporcionado en la solicitud
   });
 
   await newUser.save();
 
   res.json({ success: true, message: 'User registered successfully' });
+});
+
+// Ruta para obtener todos los usuarios (solo accesible por administradores)
+app.get('/users', async (req, res) => {
+  const users = await User.find();
+  res.json(users);
+});
+
+// Ruta para eliminar usuarios (solo accesible por administradores)
+app.delete('/users/:id', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error deleting user' });
+  }
 });
 
 // Ruta de inicio de sesión
@@ -67,9 +85,9 @@ app.post('/login', async (req, res) => {
 
   const user = await User.findOne({ username });
   if (user && bcrypt.compareSync(password, user.password)) {
-    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.SECRET_KEY, { expiresIn: '1h' });
     console.log('Login successful');
-    res.json({ success: true, token });
+    res.json({ success: true, token, role: user.role });
   } else {
     console.log('Invalid username or password');
     res.json({ success: false, message: 'Invalid username or password' });
@@ -106,16 +124,6 @@ app.delete('/products/:id', async (req, res) => {
     res.json({ success: true, message: 'Product deleted successfully' });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error deleting product' });
-  }
-});
-
-// Ruta para actualizar productos
-app.put('/products/:id', async (req, res) => {
-  try {
-    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json({ success: true, message: 'Product updated successfully', product: updatedProduct });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Error updating product' });
   }
 });
 
