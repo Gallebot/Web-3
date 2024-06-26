@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGO_URI)
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, enum: ['admin', 'buyer'], default: 'admin' }
+  role: { type: String, enum: ['admin', 'buyer'], default: 'buyer' }
 });
 
 // Product Schema
@@ -36,7 +36,7 @@ const productSchema = new mongoose.Schema({
 });
 
 // Models
-const User = mongoose.model('Usuarios Registrados', userSchema);
+const User = mongoose.model('User', userSchema);
 const Product = mongoose.model('Product', productSchema);
 
 // Ruta de registro de usuarios
@@ -53,7 +53,7 @@ app.post('/register', async (req, res) => {
   const newUser = new User({
     username,
     password: hashedPassword,
-    role: role // Utilizar el rol proporcionado en la solicitud
+    role: role || 'buyer' // Utilizar el rol proporcionado en la solicitud o por defecto 'buyer'
   });
 
   await newUser.save();
@@ -65,6 +65,23 @@ app.post('/register', async (req, res) => {
 app.get('/users', async (req, res) => {
   const users = await User.find();
   res.json(users);
+});
+
+// Ruta para actualizar usuarios
+app.put('/users/:id', async (req, res) => {
+  const { username, password, role } = req.body;
+
+  let updatedData = { username, role };
+  if (password) {
+    updatedData.password = bcrypt.hashSync(password, 10);
+  }
+
+  try {
+    await User.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+    res.json({ success: true, message: 'User updated successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error updating user' });
+  }
 });
 
 // Ruta para eliminar usuarios (solo accesible por administradores)

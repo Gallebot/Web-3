@@ -10,7 +10,7 @@ import ProductPage from './components/ProductPage';
 import Login from './components/Login';
 import Register from './components/Register';
 import AddProductWithPreview from './components/AddProductWithPreview';
-import UserManagement from './components/UserManagement';
+import UserManagement from './components/UserManagement'; // Importa el componente
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/add-product" element={<AddProductWithPreview />} />
-          <Route path="/users" element={<UserManagement />} />
+          <Route path="/users" element={<UserManagement />} /> {/* Nueva ruta */}
         </Routes>
       </div>
     </Router>
