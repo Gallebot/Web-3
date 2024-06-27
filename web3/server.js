@@ -134,6 +134,19 @@ app.get('/products', async (req, res) => {
   res.json(products);
 });
 
+// Ruta para obtener un producto por ID
+app.get('/products/:id', async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error retrieving product' });
+  }
+});
+
 // Ruta para eliminar productos
 app.delete('/products/:id', async (req, res) => {
   try {
