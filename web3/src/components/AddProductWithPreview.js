@@ -35,7 +35,7 @@ const AddProductWithPreview = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/products', newProduct);
+      await axios.post('http://localhost:5000/products', newProduct);
       setMessage('Producto añadido exitosamente!');
       setName('');
       setDescription('');
@@ -112,6 +112,7 @@ const AddProductWithPreview = () => {
             <p>{product.description}</p>
             <p>Precio: ${product.price}</p>
             <p>Categoría: {product.category}</p>
+            <p>ID: {product._id}</p>
             <button onClick={() => handleDelete(product._id)}>Eliminar</button>
           </div>
         ))}

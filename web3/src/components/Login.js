@@ -15,7 +15,7 @@ const Login = () => {
       const response = await axios.post('http://localhost:5000/login', { username, password });
       if (response.data.success) {
         if (response.data.role === 'admin') {
-          navigate('/users');
+          navigate('/user-management');
         } else {
           navigate('/');
         }

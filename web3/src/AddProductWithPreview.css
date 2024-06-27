@@ -1,5 +1,5 @@
 /* AddProductWithPreview.css */
-.add-product-form {
+.add-product-form, .update-product-form {
   width: 300px;
   margin: 0 auto;
   padding: 20px;
@@ -9,11 +9,11 @@
   text-align: center;
 }
 
-.add-product-form h2 {
+.add-product-form h2, .update-product-form h2 {
   margin-bottom: 20px;
 }
 
-.add-product-form input {
+.add-product-form input, .update-product-form input {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -23,7 +23,7 @@
   color: black;
 }
 
-.add-product-form button {
+.add-product-form button, .update-product-form button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -33,7 +33,7 @@
   cursor: pointer;
 }
 
-.add-product-form button:hover {
+.add-product-form button:hover, .update-product-form button:hover {
   background-color: #0056b3;
 }
 
@@ -46,21 +46,34 @@
 
 /* Estilo de cada tarjeta de producto */
 .product-card {
-  background-color: #686868; /* Color de fondo gris */
-  border-radius: 5px;
+  background-color: #686868;
+  border-radius: 15px;
   margin: 10px;
   padding: 10px;
-  width: calc(25% - 20px); /* 4 productos por fila */
+  width: 250px; /* Ancho fijo */
+  height: 400px; /* Alto fijo */
   box-sizing: border-box;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .product-card img {
   max-width: 100%;
   height: auto;
+  max-height: 150px; /* Ajustar altura máxima */
   border-bottom: 1px solid #ccc;
   margin-bottom: 10px;
   border-radius: 10px; /* Bordes redondeados para la imagen */
+}
+
+.product-card h3 {
+  margin: 10px 0;
+}
+
+.product-card p {
+  margin: 5px 0;
 }
 
 .product-card button {
@@ -71,6 +84,7 @@
   background-color: #dc3545;
   color: white;
   cursor: pointer;
+  margin-top: auto; /* Mover el botón al final */
 }
 
 .product-card button:hover {

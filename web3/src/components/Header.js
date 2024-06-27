@@ -8,8 +8,8 @@ function Header() {
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Tilinverrrr</Link>
       </h1>
       <nav>
-        <Link to="/login"><button>Login</button></Link>
-        <Link to="/register"><button>Registrate</button></Link>
+        <Link to="/login"><button>Pantalla login</button></Link>
+        <Link to="/register"><button>Pantalla registro</button></Link>
         <Link to="/add-product"><button>Añadir Producto</button></Link>
         <Link to="/update-product"><button>Actualizar Productos</button></Link>
         <Link to="/productos"><button>Todos los productos</button></Link>

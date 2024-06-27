@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../AddProductWithPreview.css';
+import '../AddProductWithPreview.css'; // Asegúrate de que los estilos son consistentes
 
 const UpdateProduct = () => {
   const [productId, setProductId] = useState('');
@@ -21,7 +21,7 @@ const UpdateProduct = () => {
       const response = await axios.get('http://localhost:5000/products');
       setProducts(response.data);
     } catch (error) {
-      console.error('Error fetching products!', error);
+      console.error('Error fetching products:', error);
     }
   };
 
@@ -36,16 +36,15 @@ const UpdateProduct = () => {
     };
 
     try {
-      const response = await axios.put(`http://localhost:5000/products/${productId}`, updatedProduct);
-      console.log(response.data);
+      await axios.put(`http://localhost:5000/products/${productId}`, updatedProduct);
       setMessage('Producto actualizado exitosamente!');
-      fetchProducts(); // Refresca la lista de productos después de actualizar
       setProductId('');
       setName('');
       setDescription('');
       setPrice('');
       setCategory('');
       setImageLink('');
+      fetchProducts();
     } catch (error) {
       console.error('Hubo un error actualizando el producto!', error);
       setMessage('Error actualizando el producto');
@@ -56,63 +55,64 @@ const UpdateProduct = () => {
     try {
       await axios.delete(`http://localhost:5000/products/${id}`);
       setMessage('Producto eliminado exitosamente!');
-      fetchProducts(); // Refresca la lista de productos después de eliminar
+      fetchProducts();
     } catch (error) {
-      console.error('Hubo un error eliminando el producto!', error);
+      console.error('Error eliminando el producto:', error);
       setMessage('Error eliminando el producto');
     }
   };
 
   return (
-    <div className="add-product-form">
-      <h2>Actualizar Producto</h2>
-      {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          placeholder="ID del producto" 
-          value={productId}
-          onChange={(e) => setProductId(e.target.value)}
-          required 
-        />
-        <input 
-          type="text" 
-          placeholder="Nombre del producto" 
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required 
-        />
-        <input 
-          type="text" 
-          placeholder="Descripción del producto" 
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required 
-        />
-        <input 
-          type="number" 
-          placeholder="Valor del producto" 
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required 
-        />
-        <input 
-          type="text" 
-          placeholder="Categoría del producto" 
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          required 
-        />
-        <input 
-          type="text" 
-          placeholder="Link de la imagen del producto" 
-          value={imageLink}
-          onChange={(e) => setImageLink(e.target.value)}
-          required 
-        />
-        <button type="submit">Actualizar</button>
-      </form>
-
+    <div className="update-product-container">
+      <div className="update-product-form">
+        <h2>Actualizar Producto</h2>
+        {message && <p>{message}</p>}
+        <form onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            placeholder="ID del producto" 
+            value={productId}
+            onChange={(e) => setProductId(e.target.value)}
+            required 
+          />
+          <input 
+            type="text" 
+            placeholder="Nombre del producto" 
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required 
+          />
+          <input 
+            type="text" 
+            placeholder="Descripción del producto" 
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required 
+          />
+          <input 
+            type="number" 
+            placeholder="Valor del producto" 
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required 
+          />
+          <input 
+            type="text" 
+            placeholder="Categoría del producto" 
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required 
+          />
+          <input 
+            type="text" 
+            placeholder="Link de la imagen del producto" 
+            value={imageLink}
+            onChange={(e) => setImageLink(e.target.value)}
+            required 
+          />
+          <button type="submit">Actualizar</button>
+        </form>
+      </div>
       <div className="products-list">
         {products.map(product => (
           <div key={product._id} className="product-card">
