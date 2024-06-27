@@ -90,3 +90,16 @@
 .product-card button:hover {
   background-color: #c82333;
 }
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .product-card {
+    width: calc(50% - 20px); /* Dos tarjetas por fila en pantallas medianas */
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    width: 100%; /* Una tarjeta por fila en pantallas pequeñas */
+  }
+}

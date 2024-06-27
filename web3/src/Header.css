@@ -1,0 +1,70 @@
+/* Header.css */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #141C29;
+  z-index: 10; /* Añadir z-index para asegurar que el header esté encima de otros elementos */
+}
+
+.logo {
+  width: 100px;
+}
+
+.nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav button {
+  background-color: #263143;
+  color: white;
+  width: 100px;
+  height: 35px;
+  border-radius: 10px;
+  border: none;
+  font-size: 17px;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+.nav button:hover {
+  background-color: #2D4263;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #141C29;
+    display: none;
+    gap: 0;
+    z-index: 20; /* Asegurar que el nav esté encima de otros elementos cuando se despliega */
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav button {
+    width: 100%;
+    border-top: 1px solid #333;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}

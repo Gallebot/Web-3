@@ -147,6 +147,23 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
+// Ruta para actualizar productos
+app.put('/products/:id', async (req, res) => {
+  const { name, description, price, image, category } = req.body;
+
+  const updatedData = { name, description, price, image, category };
+
+  try {
+    const product = await Product.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+    if (!product) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    res.json({ success: true, message: 'Product updated successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error updating product' });
+  }
+});
+
 // Ruta para eliminar productos
 app.delete('/products/:id', async (req, res) => {
   try {

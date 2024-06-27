@@ -45,7 +45,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #324155; /* Color por defecto del botón */
+    background-color: #4b5561; /* Color por defecto del botón */
     color: white;
   }
   
@@ -70,7 +70,7 @@
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #324155;
+    background-color: #a0b5d9;
     color: black;
   }
   
@@ -86,7 +86,7 @@
   }
   
   .edit-form button:hover {
-    background-color: #0056b3;
+    background-color: #38526f;
   }
   
   .edit-form button[type="button"] {
@@ -96,4 +96,17 @@
   .edit-form button[type="button"]:hover {
     background-color: #c82333;
   }
-  
+
+  /* Media Queries */
+@media (max-width: 768px) {
+  .user-management-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .edit-form input,
+  .edit-form select,
+  .edit-form button {
+    width: 100%;
+  }
+}
