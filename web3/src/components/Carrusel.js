@@ -10,7 +10,7 @@ function Carrusel() {
   const navigate = useNavigate();
 
   const handleImageClick = (route) => {
-    navigate(route); // Navega a la ruta específica
+    navigate(route); 
   };
 
   return (
