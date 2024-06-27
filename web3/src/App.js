@@ -12,6 +12,7 @@ import Register from './components/Register';
 import AddProductWithPreview from './components/AddProductWithPreview';
 import UserManagement from './components/UserManagement'; // Importa UserManagement si aún no está
 import UpdateProduct from './components/UpdateProduct'; // Importa el nuevo componente
+import ProductDetails from './components/ProductDetails'; // Importa el nuevo componente
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/add-product" element={<AddProductWithPreview />} />
           <Route path="/user-management" element={<UserManagement />} /> {/* Ruta para UserManagement */}
           <Route path="/update-product" element={<UpdateProduct />} />
+          <Route path="/products/:id" element={<ProductDetails />} /> {/* Nueva ruta */}
         </Routes>
       </div>
     </Router>
