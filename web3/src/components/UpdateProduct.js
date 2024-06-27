@@ -118,9 +118,8 @@ const UpdateProduct = () => {
           <div key={product._id} className="product-card">
             <img src={product.image} alt={product.name} />
             <h3>{product.name}</h3>
-            <p>{product.description}</p>
+            
             <p>Precio: ${product.price}</p>
-            <p>Categoría: {product.category}</p>
             <p>ID: {product._id}</p>
             <button onClick={() => handleDelete(product._id)}>Eliminar</button>
           </div>

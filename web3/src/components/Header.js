@@ -5,7 +5,7 @@ function Header() {
   return (
     <header id="header">
       <h1>
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Tilinverrrr</Link>
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>SkillMarket</Link>
       </h1>
       <nav>
         <Link to="/login"><button>Pantalla login</button></Link>

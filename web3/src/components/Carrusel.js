@@ -1,51 +1,53 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../carrusel.css';
-import imagen1 from '../components/images/chicharo.jpg';
-import imagen2 from '../components/images/rayadosssss.jpg';
-import imagen3 from '../components/images/chicharo.jpg';
-import imagen4 from '../components/images/rayadosssss.jpg';
+import imagen1 from '../components/images/Architecture.webp';
+import imagen2 from '../components/images/Blockchain.png';
+import imagen3 from '../components/images/Filmed Video Production.webp';
+import imagen4 from '../components/images/Music Production.webp';
 
 function Carrusel() {
-  const handleImageClick = (message) => {
-    alert(message); // Aquí puedes manejar la acción que deseas realizar
+  const navigate = useNavigate();
+
+  const handleImageClick = (route) => {
+    navigate(route); // Navega a la ruta específica
   };
 
   return (
     <div className="carrusel-container">
       <div className="carrusel">
-        <button className="carrusel-item" onClick={() => handleImageClick('Imagen 1 clickeada')}>
+        <button className="carrusel-item" onClick={() => handleImageClick('/products/667da5859fb5ed6ac8c12c6f')}>
           <img src={imagen1} alt="Imagen 1" />
           <div className="caption">
-            <h2>Apps de deporte y bienestar</h2>
-            <p>Muévete ahí mismo</p>
-            <button>Muévete</button>
+            <h2>Arquitectura y diseño de construcción</h2>
+            <p>Explora nuevos diseños</p>
+            <button>Click aqui</button>
           </div>
         </button>
-        <button className="carrusel-item" onClick={() => handleImageClick('Imagen 2 clickeada')}>
+        <button className="carrusel-item" onClick={() => handleImageClick('/products/667da77d9fb5ed6ac8c12ca4')}>
           <img src={imagen2} alt="Imagen 2" />
           <div className="caption">
-            <h2>SNKRS</h2>
-            <p>Tu comunidad de calzado definitiva</p>
+            <h2>Blockchain y criptomonedas</h2>
+            <p>Seguridad y auditoria</p>
             <button>Explorar</button>
           </div>
         </button>
-        <button className="carrusel-item" onClick={() => handleImageClick('Imagen 3 clickeada')}>
+        <button className="carrusel-item" onClick={() => handleImageClick('/products/667da8059fb5ed6ac8c12cad')}>
           <img src={imagen3} alt="Imagen 3" />
           <div className="caption">
-            <h2>Producto para Miembros</h2>
+            <h2>Producción cinematográfica</h2>
             <p>Acceso exclusivo</p>
             <button>Comprar</button>
           </div>
         </button>
-        <button className="carrusel-item" onClick={() => handleImageClick('Imagen 4 clickeada')}>
+        <button className="carrusel-item" onClick={() => handleImageClick('/products/667da8829fb5ed6ac8c12cb6')}>
           <img src={imagen4} alt="Imagen 4" />
           <div className="caption">
-            <h2>Nuevo Producto</h2>
-            <p>Descripción del producto</p>
-            <button>Comprar</button>
+            <h2>Producción y escritura musical</h2>
+            <p>Productores, escritores y vocalistas</p>
+            <button>Click</button>
           </div>
         </button>
-        {/* Añade más botones con la clase "carrusel-item" según sea necesario */}
       </div>
     </div>
   );

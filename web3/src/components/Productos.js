@@ -29,7 +29,6 @@ function Productos() {
             <img src={product.image} alt={product.name} />
             <div className="product-info">
               <h3>{product.name}</h3>
-              <p>{product.description}</p>
               <p>${product.price}</p>
               <button>COMPRAR</button>
             </div>
