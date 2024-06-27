@@ -8,11 +8,12 @@ function Header() {
         <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>Tilinverrrr</Link>
       </h1>
       <nav>
-        <Link to="/informatica"><button>Infomática</button></Link>
-        <Link to="/jardineria"><button>Jardinería</button></Link>
-        <Link to="/matematicas"><button>Matemáticas</button></Link>
-        <Link to="/tareas"><button>Tareas</button></Link>
-        <Link to="/productos"><button>Gaming</button></Link>
+        <Link to="/login"><button>Login</button></Link>
+        <Link to="/register"><button>Registrate</button></Link>
+        <Link to="/add-product"><button>Añadir Producto</button></Link>
+        <Link to="/update-product"><button>Actualizar Productos</button></Link>
+        <Link to="/productos"><button>Todos los productos</button></Link>
+        <Link to="/user-management"><button>Gestion de usuarios</button></Link>
       </nav>
       <div>
         <img id="carrito" className="carrito" src="/img/carrito-de-compras.png" alt="" />
